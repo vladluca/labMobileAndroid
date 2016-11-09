@@ -96,6 +96,13 @@ public class MainActivity extends AppCompatActivity
 
         } else if (id == R.id.nav_send) {
 
+        } else if (id == R.id.car_list) {
+            if (!(mFragment instanceof FragmentCarList)) {
+                mFragment = new FragmentCarList();
+            }
+            fragmentManager.beginTransaction()
+                    .replace(R.id.content_main, mFragment)
+                    .commit();
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
