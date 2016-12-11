@@ -35,7 +35,7 @@ public class CarListAdapter extends BaseAdapter {
 
     @Override
     public long getItemId(int i) {
-        return mCars.get(i).getFileId();
+        return mCars.get(i).getId();
     }
 
     @Override

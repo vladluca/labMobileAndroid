@@ -15,6 +15,8 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Date;
 
 /**
  * Created by lucav on 11/9/2016.
@@ -38,9 +40,50 @@ public class FragmentCarList extends Fragment {
             Log.e("ERR", e.toString());
         }
 
+        final DBWr dbWrapper = new DBWr(getContext(), null, null, 1);
+        Car[] cars = dbWrapper.getCars();
+
         final ArrayList<Car> mCarList = new ArrayList<>();
-        for (int i = 0; i < 5 ; i++) {
-            mCarList.add(new Car(i, "Mazda","Type" + i, i));
+
+        for (Car c: cars) {
+            mCarList.add(c);
+        }
+
+        mPlaceListView = (ListView) view.findViewById(R.id.car_list_view);
+        CarListAdapter adapter = new CarListAdapter(getActivity(), mCarList);
+        mPlaceListView.setAdapter(adapter);
+        mPlaceListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent appInfo = new Intent(getActivity(), EditCarActivity.class);
+
+                appInfo.putExtra("CAR_ID", ""+mCarList.get(position).getId());
+                startActivity(appInfo);
+
+                startActivity(appInfo);
+            }
+        });
+
+        Button addCarBtn = (Button) view.findViewById(R.id.addCarBtn);
+        addCarBtn.setOnClickListener(new AdapterView.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent appInfo = new Intent(getActivity(), EditCarActivity.class);
+                startActivity(appInfo);
+            }
+        });
+
+        return view;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        DBWr dbWrapper = new DBWr(getContext(), null, null, 1);
+        Car[] cars = dbWrapper.getCars();
+        final ArrayList<Car> mCarList = new ArrayList<>();
+        for (Car c : cars) {
+            mCarList.add(c);
         }
         mPlaceListView = (ListView) view.findViewById(R.id.car_list_view);
         CarListAdapter adapter = new CarListAdapter(getActivity(), mCarList);
@@ -49,12 +92,9 @@ public class FragmentCarList extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent appInfo = new Intent(getActivity(), EditCarActivity.class);
-                appInfo.putExtra("CAR_MARK", mCarList.get(position).getMark());
-                appInfo.putExtra("CAR_MODEL", mCarList.get(position).getModel());
+                appInfo.putExtra("CAR_ID", ""+mCarList.get(position).getId());
                 startActivity(appInfo);
             }
         });
-
-        return view;
     }
 }
