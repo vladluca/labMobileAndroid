@@ -97,6 +97,7 @@ public class EditCarActivity extends Activity {
             chart.setData(lineData);
             chart.invalidate(); // refresh
         }
+
         Button saveBtn = (Button) findViewById(R.id.carSave);
         saveBtn.setOnClickListener(new AdapterView.OnClickListener() {
             @Override
@@ -110,6 +111,7 @@ public class EditCarActivity extends Activity {
                     for(int n = 0; n < parts.length; n++) {
                         fuel[n] = Integer.parseInt(parts[n]);
                     }
+
                     Car c = new Car(
                             Integer.parseInt(carIDField.getText().toString()),
                             carMarkField.getText().toString(),
@@ -117,6 +119,7 @@ public class EditCarActivity extends Activity {
                             df.parse(carYear.getText().toString()),
                             fuel
                     );
+
                     int duration = Toast.LENGTH_SHORT;
                     String text = dbWrapper.saveCar(c) ? "Saved" : "An error has occured";
                     Toast toast = Toast.makeText(getApplicationContext(), text, duration);

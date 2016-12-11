@@ -4,7 +4,6 @@ package vluca.androidlab;
  * Created by lucav on 12/11/2016.
  */
 
-
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.database.Cursor;
@@ -19,11 +18,9 @@ import java.util.Date;
 import java.util.Locale;
 import java.util.TimeZone;
 
-
 public class DBWr extends SQLiteOpenHelper {
     private static final int DB_VERSION = 1;
     private static final String DB_NAME = "Cars.db";
-    //PLAYERS TABLE
     private static final String TABLE_CARS = "cars";
     private static final String COLUMN_ID = "_id";
     private static final String COLUMN_MARK = "mark";
@@ -35,6 +32,7 @@ public class DBWr extends SQLiteOpenHelper {
     public DBWr(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
         super(context, DB_NAME, factory, DB_VERSION);
     }
+
     @Override
     public void onCreate(SQLiteDatabase db) {
         String steps_query = "CREATE TABLE " + TABLE_CARS + " ( "+
@@ -45,8 +43,6 @@ public class DBWr extends SQLiteOpenHelper {
                 COLUMN_FUEL + " TEXT" +
                 " );";
         db.execSQL(steps_query);
-
-
     }
 
     @Override
